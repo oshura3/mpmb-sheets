@@ -82,7 +82,7 @@ ClassList["savant"] = { //Object name; Note the use of only lower case! Also not
 
 	features : { //required;  the class features.
 
-		"adroit analysiss" : { //note the use of lower case characters
+		"adroit analysis" : { //note the use of lower case characters
 			// **note**: I have a feeling that this class may need the most work, formula wise, mechanically speaking.
 			name : "Adroit Analysis", //required; the name of the class feature
 			source : ["GMB:LL-S", 2], //required; the source of the class feature
@@ -455,29 +455,29 @@ AddSubClass( // this is the function you will be calling to add the variant
 			minlevel : 3,
 			description : desc([
 				"I can use an action on my turn to do one of the following:",
-				"Adrenaline Boost; Crippling Strike; Dress Wounds; Healing Surge; Stabilize.",
+				"Adrenaline Jolt; Dress Wounds; Healing Surge; Rending Strike; Stabilize.",
 				"Details on the above actions can be found on the notes page"
 				]),
 			eval : function() {
 				combtMedicActionsStr = 
 					"Combat Medic Actions:"
-					+"\n\u25C6 Adrenaline Boost\nA humanoid creature you touch can use its reaction to repeat a saving throw to end one of the following conditions affecting it: blinded, charmed, deafened, frightened, or poisoned. It gains a bonus to its roll equal to your Intelligence modifier (minimum of 1)."
-					+"\n\u25C6 Crippling Strike\nYou target an anatomical weak point of your foe. Make a weapon attack against a creature. On hit, in addition to the normal effects of the attack, you reduce the movement speed of the target by an amount equal to 5 times your Intelligence modifier (minimum of 5 feet). This speed reduction lasts until the start of your next turn."
-					+"\n\u25C6 Dress Wounds\nYou soothe the aches and pains of your allies. At the end of a short rest you can touch a number of creatures, including yourself, equal to your Intelligence modifier (minimum of 1). They immediately gain temporary hit points equal to 1d6 + your proficiency bonus."
-					+"\n\u25C6 Healing Surge\nYou use medicinal techniques to stimulate healing. A humanoid creature you touch can use its reaction to expend 1 of their Hit Die. The target immediately regains hit points equal to their Hit Die roll + their Constitution modifier + your Intelligence modifier (minimum of 1)."
-					+"\n\u25C6 Stabilize\nYou use your knowledge to stabilize a creature. You touch a living humanoid creature that has 0 hit points and it becomes stable. The creature can then choose to expend 1 of their Hit Die to regain hit points equal to the maximum value of the Hit Die + their Constitution modifier."
+					+"\n\u25C6 Adrenaline Jolt\nA creature I touch can immediately repeat a saving throw to end one of the following conditions affecting it: blinded, charmed, deafened, frightened, or poisoned, adding my Int mod (min. 1) to their roll."
+					+"\n\u25C6 Dress Wounds\nI touch a creature and expend a use of Unyielding Mind, granting them temporary hit points equal to my Unyieldng Mind roll + my Int mod."
+					+"\n\u25C6 Healing Surge\nA creature I touch can expend 1 of their Hit Dice to regain hit points equal to their Hit Die roll + their Con mod + my Int mod."
+					+"\n\u25C6 Rending Strike\nMake a weapon attack. On hit, target takes normal damage of my attack and its movement is reduced by a number of feet equal to 5 times my Int mod until the start of my next turn."
+					+"\n\u25C6 Stabilize\nI touch a living creature that has 0 hit points, automatically stabilizing them. The target can then choose to expend 1 of their Hit Dice to regain hit points equal to the maximum value of the Hit Die + their Con mod."
 				
 				AddString('Extra.Notes', combtMedicActionsStr, true);
 				show3rdPageNotes();
 				},
 			removeeval : function() {
 				combtMedicActionsStr = 
-					"Combat Medic Actions:"
-					+"\n\u25C6 Adrenaline Boost\nA humanoid creature you touch can use its reaction to repeat a saving throw to end one of the following conditions affecting it: blinded, charmed, deafened, frightened, or poisoned. It gains a bonus to its roll equal to your Intelligence modifier (minimum of 1)."
-					+"\n\u25C6 Crippling Strike\nYou target an anatomical weak point of your foe. Make a weapon attack against a creature. On hit, in addition to the normal effects of the attack, you reduce the movement speed of the target by an amount equal to 5 times your Intelligence modifier (minimum of 5 feet). This speed reduction lasts until the start of your next turn."
-					+"\n\u25C6 Dress Wounds\nYou soothe the aches and pains of your allies. At the end of a short rest you can touch a number of creatures, including yourself, equal to your Intelligence modifier (minimum of 1). They immediately gain temporary hit points equal to 1d6 + your proficiency bonus."
-					+"\n\u25C6 Healing Surge\nYou use medicinal techniques to stimulate healing. A humanoid creature you touch can use its reaction to expend 1 of their Hit Die. The target immediately regains hit points equal to their Hit Die roll + their Constitution modifier + your Intelligence modifier (minimum of 1)."
-					+"\n\u25C6 Stabilize\nYou use your knowledge to stabilize a creature. You touch a living humanoid creature that has 0 hit points and it becomes stable. The creature can then choose to expend 1 of their Hit Die to regain hit points equal to the maximum value of the Hit Die + their Constitution modifier."
+				"Combat Medic Actions:"
+				+"\n\u25C6 Adrenaline Jolt\nA creature I touch can immediately repeat a saving throw to end one of the following conditions affecting it: blinded, charmed, deafened, frightened, or poisoned, adding my Int mod (min. 1) to their roll."
+				+"\n\u25C6 Dress Wounds\nI touch a creature and expend a use of Unyielding Mind, granting them temporary hit points equal to my Unyieldng Mind roll + my Int mod."
+				+"\n\u25C6 Healing Surge\nA creature I touch can expend 1 of their Hit Dice to regain hit points equal to their Hit Die roll + their Con mod + my Int mod."
+				+"\n\u25C6 Rending Strike\nMake a weapon attack. On hit, target takes normal damage of my attack and its movement is reduced by a number of feet equal to 5 times my Int mod until the start of my next turn."
+				+"\n\u25C6 Stabilize\nI touch a living creature that has 0 hit points, automatically stabilizing them. The target can then choose to expend 1 of their Hit Dice to regain hit points equal to the maximum value of the Hit Die + their Con mod."
 				
 				RemoveString('Extra.Notes', combtMedicActionsStr, true);
 				},
@@ -488,7 +488,8 @@ AddSubClass( // this is the function you will be calling to add the variant
 				source : ["GMB:LL-S", 6],
 				minlevel : 6,
 				description : desc([
-					"If I restore hit points, grant temporary hit points, or stabilize another creature,",
+					"When I use my action to stabilize a creature, restore hit points,", 
+					"or grant temporary hit points,", 
 					"I gain the effects of the Dodge action until the start of my next turn.",
 					"When I use my Combat Medic feature,",
 					"I can make one weapon attack as a bonus action on that turn.",
@@ -501,28 +502,29 @@ AddSubClass( // this is the function you will be calling to add the variant
 				source : ["GMB:LL-S", 7],
 				minlevel : 13,
 				description : desc([
-					"I gain access to the following additional options for my Combat Medic feature:",
+					"As an action, I touch a creature and use one of the following abilities:",
 					"Regeneration; Restoration; Resuscitation.",
-					"Details on the above actions can be found on the notes page",
+					"Details on the above actions can be found on the notes page.",
 				]),
 				eval : function() {
 					advanceMedActionsStr = 
 						"\nCombat Medic Actions (Advanced Combat Medic) [Int Mod x per long rest]"
-            			+"\n\u25C6 Regeneration\nYou touch a creature and it regains hit points equal to four rolls of my Unyielding Mind die. If the creature has a severed body part, you can reattach it as apart of this action."
-						+"\n\u25C6 Restoration\nYou touch a creature and alleviate a debilitating effect. You reduce its exhaustion level by one, or end one of the following conditions on it: blinded, charmed, deafened, frightened, paralyzed, or poisoned."
-						+"\n\u25C6 Resuscitation\nYou touch a creature that has died within the last minute. It is returned to life with 1 hit point as if you had cast the revivify spell on the creature."
+            			+"\n\u25C6 Regeneration\nCreature regains hit points equal to four rolls of my Unyielding Mind die. If the creature has a severed body part, I can reattach it as apart of this action."
+						+"\n\u25C6 Restoration\nI end one of the following conditions currently affecting it: blinded, charmed, deafened, frightened, poisoned, a reduction to an ability score or its hit point maximum, or I reduce its level of exhaustion by 1."
+						+"\n\u25C6 Resuscitation\nIf the  creature that has died within the last minute, I return it to life with 1 hit point. I cannot bring back a creature that died of old age, nor can I restore any body parts the creature was missing."
 					AddString('Extra.Notes', advanceMedActionsStr, true);
 					show3rdPageNotes();
 				},
 				removeeval : function() {
 					advanceMedActionsStr = 
-						"\nCombat Medic Actions (Advanced Medicine) [1 x per short rest]"
-						+"\n\u25C6 Restorative Boost\nYou touch a humanoid creature and alleviate a debilitating effect. You end any reduction to one of the target's ability scores, end an effect reducing the target's hit point maximum, reduce its exhaustion level by one, or end one of the following conditions on it: blinded, charmed, deafened, frightened, paralyzed, or poisoned."
-						+"\n\u25C6 Resuscitate\nYou touch a humanoid creature that has died within the last minute. It is returned to life with 1 hit point as if you had cast the revivify spell on the creature."
+						"\nCombat Medic Actions (Advanced Combat Medic) [Int Mod x per long rest]"
+						+"\n\u25C6 Regeneration\nCreature regains hit points equal to four rolls of my Unyielding Mind die. If the creature has a severed body part, I can reattach it as apart of this action."
+						+"\n\u25C6 Restoration\nI end one of the following conditions currently affecting it: blinded, charmed, deafened, frightened, poisoned, a reduction to an ability score or its hit point maximum, or I reduce its level of exhaustion by 1."
+						+"\n\u25C6 Resuscitation\nIf the  creature that has died within the last minute, I return it to life with 1 hit point. I cannot bring back a creature that died of old age, nor can I restore any body parts the creature was missing."
 					RemoveString('Extra.Notes', advanceMedActionsStr, true);
 				},
 				usages : 1,
-				recovery : "short rest",
+				recovery : "long rest", //**Note:** not sure if this is correct or not
 			},
 
 			"subclassfeature17" : {
@@ -532,8 +534,8 @@ AddSubClass( // this is the function you will be calling to add the variant
 				description : desc([
 					"Whenever I restore hit points or grant temporary hit points to a creature,",
 					"it gains the maximum amount, in place of rolling.",
-					"Any creature within 30 feet of me that expends Hit Dice to regain hit points",
-					"at the end of a short rest can treat the expended Hit Dice as their maximum roll."
+					"Any creature within 30 feet of me that expends Hit Dice,",
+					"treats their Hit Dice as its maximum possible roll."
 				])
 			},
 		}
