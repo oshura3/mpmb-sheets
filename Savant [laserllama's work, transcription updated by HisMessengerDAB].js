@@ -55,8 +55,8 @@ ClassList["savant"] = { //Object name; Note the use of only lower case! Also not
 		secondary : "Choose one from Arcana, History, Insight, Investigation, Medicine, Nature, Persuasion, or Religion"
 	},
 	toolProfs : {// optional; this is an object with arrays with the tool proficiencies gained. Each entry in an array can be its own array of 2 entries. The first entry is the name of the tool and the second entry is either 1) a number if the tool is yet to be chosen, or 2) the 3-letter ability score abbreviation if the tool is to be listed in the skill section and have a bonus calculated
-		primary : [["artisan's tools", 1]], // optional; the tool proficiencies gained if the class is the primary class (i.e. taken at 1st level)
-		secondary : [["artisan's tools", 1]] // optional; the tool proficiencies gained if the class is not the primary class (i.e. taken at a later level)
+		primary : [["Artisan's tools", 1]], // optional; the tool proficiencies gained if the class is the primary class (i.e. taken at 1st level)
+		secondary : [["Artisan's tools", 1]] // optional; the tool proficiencies gained if the class is not the primary class (i.e. taken at a later level)
 	},
 	armorProfs : { //required; the 4 entries are for: ["light", "medium", "heavy", "shields"]
 		primary : [true, false, false, false],
@@ -88,7 +88,7 @@ ClassList["savant"] = { //Object name; Note the use of only lower case! Also not
 			source : ["GMB:LL-S", 2], //required; the source of the class feature
 			minlevel : 1, //required; the level at which the feature is gained
 			description : desc([
-				"As bonus action, I mark a creature I can see within 60ft.Effect lasts 1 min or until another creature marked.",
+				"As bonus action, I mark a creature I can see within 60ft. Effect lasts 1 min or until another creature marked.",
 				"Can use Int for attack and damage rolls against marked creature.",
 				"If I hit marked creature with attack, or observe it for 1 min, I learn one of these:",
 				"its Armor Class, movement speed, one ability score, its max HP, or creature type.",
@@ -101,7 +101,7 @@ ClassList["savant"] = { //Object name; Note the use of only lower case! Also not
 				atkAdd : [
 					function (fields, v) {
 						if (classes.known.savant && classes.known.savant.level && !v.isSpell && !v.isDC) {
-							fields.Description += (fields.Description ? '; ' : '') + 'Androit Analysis: can use Int vs marked target';
+							fields.Description += (fields.Description ? '; ' : '') + 'Androit Analysis: can use Int vs. marked target';
 						};
 					},
 				]
@@ -143,12 +143,15 @@ ClassList["savant"] = { //Object name; Note the use of only lower case! Also not
 				"I must choose one learned this way to forget, and immediately lose any skill or knowledge of it.",
 				"At 7th level of this class, can learn a new one at end of short or long rest."
 				]),
-			usages : "Intelligence modifier",
+			usages : "Intelligence modifier per",
 			usagescalc : "event.value = Math.max(1, What('Int Mod'));",
+			recovery : levels.map(function (n) {
+				return n < 7 ? "long rest" : "short rest";
+			}),
 		},
 
 		"unyielding mind" : {
-			name : "Unyielding Mind",
+			name : "Unyielding Mind (UM)",
 			source : ["GMB:LL-S", 3],
 			minlevel : 2,
             description : desc([
@@ -163,6 +166,9 @@ ClassList["savant"] = { //Object name; Note the use of only lower case! Also not
             }), 
 			// **question**: would this be considered a free action? If so, how would it be listed under the action category?
 			// **question**: also, is there a formula to automatically track how many UM dice I have left over until they reset?	
+			usages : "Intelligence modifier per",
+			usagescalc : "event.value = Math.max(1, What('Int Mod'));",
+			recovery : "short rest",
 			action : ["reaction", ""], //optional; adds the name of this feature to the bonus action list when chosen. The options are "action", "bonus action", and "reaction"
 			savetxt : { // Optional; this attribute defines entries to add to the field for "Saving Throw Advantages / Disadvantages"
 				text : ["Unyielding Mind"], // Optional; this is an array of strings, and each of those strings is added to the field exactly as presented here
@@ -226,8 +232,9 @@ ClassList["savant"] = { //Object name; Note the use of only lower case! Also not
 				"A number of creatures equal to my Int mod (min 1) that can hear me gain it.",
 				"This benefit lasts until the end of my next long rest.",
 				]),
-			usages : "Intelligence modifier",
+			usages : "Intelligence modifier per",
 			usagescalc : "event.value = Math.max(1, What('Int Mod'));",
+			recover : "long rest"
 		},
 
 		"flawless observation":{
@@ -523,8 +530,9 @@ AddSubClass( // this is the function you will be calling to add the variant
 						+"\n\u25C6 Resuscitation\nIf the  creature that has died within the last minute, I return it to life with 1 hit point. I cannot bring back a creature that died of old age, nor can I restore any body parts the creature was missing."
 					RemoveString('Extra.Notes', advanceMedActionsStr, true);
 				},
-				usages : 1,
-				recovery : "long rest", //**Note:** not sure if this is correct or not
+				usages : "Intelligence modifier per",
+				usagescalc : "event.value = Math.max(1, What('Int Mod'));",
+				recover : "long rest"
 			},
 
 			"subclassfeature17" : {
